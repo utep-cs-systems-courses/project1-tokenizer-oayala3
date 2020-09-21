@@ -76,25 +76,20 @@ int count_words(char *str)
 }
   char *copy_str(char *inStr, short len)
   {
-    char *use=&inStr[0];
-    char newStr [len];
    
+    char newStr [len];
+    char *newStrP=(char *)malloc(sizeof(len));
     for(int i =0; i<len;i++)
       {
-	newStr[i]=use[i];
+	newStrP[i]=inStr[i];
       }
     newStr[len]='\0';
-    char *newStrP=(char *)malloc(sizeof(char));
-    newStrP=&newStr[0];
-   return newStrP;
+    return newStrP;
   }
 char **tokenize(char* str)
 {
   int size=count_words(str);
-  // char *tokens[size]=(char *)malloc(sizeof(size));
   char **tokensPP = malloc(sizeof(char*) * (size + 1));
-  //char **tokenPP;
-  //tokenPP=&tokens[0];
   char *pointerStart;
   long wordSize;
   for(int i=0;i<size; i++)
