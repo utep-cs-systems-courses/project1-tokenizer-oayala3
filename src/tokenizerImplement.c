@@ -1,10 +1,9 @@
-
 #include <stdio.h>
 #include "tokenizer.h"
 int space_char(char c)
 {
   int bool=0;
-  if(c=='\t' || c==' ')
+  if(c=='\t' || c==' ')  //if char c is a space turn boolean to true
     {
       bool=1;
     }
@@ -14,7 +13,7 @@ int space_char(char c)
 int non_space_char(char c)
 {
   int bool=0;
-  if(c!='\t' && c!=' ' && c!='\0')
+  if(c!='\t' && c!=' ' && c!='\0')  // if char c is not a space or \0 turn boolean true
     {
       bool=1;
     }
@@ -27,32 +26,33 @@ char *word_start(char *str)
   for(int i=0; i<10 && stop==0 && str[0]!='\0';i++)
     {
 	  stop=non_space_char(str[0]);
-	  if(stop==0)
+	  if(stop==0) //if you find the non_space then stop the loop.
 	    {
 	      str++;
 	    }
     }
   
-  if(stop==0)
+  if(stop==0) // if you didnt find a start then return null
     {
       str=NULL;
     }
   return str;
 }
+
 char *word_terminator(char *word)
 {
   int stop=0;
   
   for(int i=0; i<100 && stop==0 && word[0]!='\0';i++)
     {
-      stop=space_char(word[0]);
+      stop=space_char(word[0]); //if you find a space stop the loop.
       if(stop==0)
 	{
 	  word++;
 	}
     }
   
-  if(stop==0)
+  if(stop==0)// if you dont find a space return null
     {
       word=NULL;
     }
@@ -61,13 +61,13 @@ char *word_terminator(char *word)
 int count_words(char *str)
 {
   int counter=0;
-   while(str!=NULL && counter<12) 
+  while(str!=NULL && counter<12) // check that the str has something
     {
-      str=word_start(str);
+      str=word_start(str); //go to the start of the word
       if(str!=NULL)
 	{
 	  counter++;
-	  str=word_terminator(str);
+	  str=word_terminator(str);//go to the end. 
     }
     }
    
@@ -83,7 +83,6 @@ int count_words(char *str)
 	newStr[i]=use[i];
       }
     newStr[len]='\0';
-    // printf("%s\n",newStr);
     char *newStrP=&newStr[0];
    return newStrP;
   }
@@ -91,7 +90,8 @@ char **tokenize(char* str)
 {
   int size=count_words(str);
   char *tokens[size];
-  char **tokenPP=tokens;
+  char **tokenPP;
+  tokenPP=&tokens[0];
   char *pointerStart;
   long wordSize;
   for(int i=0;i<size; i++)
@@ -110,8 +110,8 @@ char **tokenize(char* str)
 	    }
 	}
       wordSize=str-pointerStart;  // You can find he lenght of the word like this
-     tokens[i]=copy_str(pointerStart,wordSize); //Assigning the string pointer to the array
-     printf("tokens %s and locaion %d\n",tokenPP[i],i);
+      tokens[i]=copy_str(pointerStart,wordSize); //Assigning the string pointer to the array
+      printf("tokens %s locaion %d\n",tokenPP[i],i);
     }
   return tokenPP;
 }
@@ -119,51 +119,25 @@ char **tokenize(char* str)
 void main()
 {
   printf("start\n");
-  char x ='o';
-  char y =' ';
-  char *a;
-  a=&x;
-  char *b;
-  b=&y;
   char test[]="Oscar Ayala Cries alot";
-  char *c=&test[0];
-  char *d=&test[5];
-  char *e=&test[6];
-  int test1=0;
-  char *test2;
-  test1=space_char(x);
-  //  printf("%d\n",test1);
+  char *start=&test[0];
+
   
-  test1=non_space_char(x);
-  // printf("%d\n",test1);
-
-  test1=space_char(y);
-  //  printf("%d\n",test1);
-
-  test1=non_space_char(y);
-  // printf("%d\n",test1);
-
-  // printf("end\n");
-
-  //  printf("char O is in %p \n char space is in %p \n char A is in %p\n",c,d,e);
-
-  test2=word_start(c);
-  // printf("%p\n",test2);
-  test2=word_terminator(c);
-  // printf("%p\n",test2);
-
-  // printf("%d\n",count_words(c));
-char *copytest=copy_str(c,5);
-// printf("%s\n",&copytest[0]);
-
- char **tokenS=tokenize(c);
- char *tokenTest=tokenS[0];
- // char tokenA=tokenS[0];
- printf("token testing %s\n",&tokenTest[0]);
- printf("token1 %s\n",&tokenTest[1]);
- printf("token2 %s\n",&tokenTest[2]);
- printf("token3 %s\n",&tokenTest[3]);
-
- // printf("%s\n",tokenA);
+  char **tokenS=tokenize(start);
+  char *tokenTest[count_words(start)];
+  tokenTest[0]=*tokenS;
+  tokenTest[1]=(*tokenS+1);
+  tokenTest[2]=(*tokenS+2);
+  tokenTest[3]=(*tokenS+3);
+  // char tokenA=tokenS[0];
+  printf("TokenPP0%s\n",(*tokenS));
+  printf("TokenPP1%s\n",(*tokenS+1));
+  printf("TokenPP2%s\n",(*tokenS+2));
+  printf("TokenPP3%s\n",(*tokenS+3));
+  printf("token0 %s\n",&tokenTest);
+  printf("token1 %s\n",&tokenTest+1);
+  printf("token2 %s\n",&tokenTest+2);
+  printf("token3 %s\n",&tokenTest+3);
+  // printf("%s\n",tokenA);
   // return 0;
 }
