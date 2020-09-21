@@ -69,29 +69,35 @@ int count_words(char *str)
 	{
 	  counter++;
 	  str=word_terminator(str);//go to the end. 
+	}
     }
-    }
-   
+  
    return counter;
 }
   char *copy_str(char *inStr, short len)
   {
-   
-    char newStr [len];
-    char *newStrP=(char *)malloc(sizeof(len));
-    for(int i =0; i<len;i++)
+    char *newStrP=malloc(sizeof(char) * (len + 1));
+    char *temp=newStrP;
+    for(int i=0;i<len;i++)
       {
-	newStrP[i]=inStr[i];
+	*temp=*inStr;
+	printf("Loop %s\n",temp);
+	temp++;
+	inStr++;
       }
-    newStr[len]='\0';
+   *temp='\0';
+   printf("return %s\n",newStrP);
     return newStrP;
   }
-char **tokenize(char* str)
+
+ char **tokenize(char* str)
 {
+  printf("starting");
   int size=count_words(str);
-  char **tokensPP = malloc(sizeof(char*) * (size + 1));
+  char **tokensPP=malloc(sizeof(char*) * (size + 1));
   char *pointerStart;
-  long wordSize;
+  int wordSize;
+  printf("before loop\n");
   for(int i=0;i<size; i++)
     {
       str=word_start(str);
@@ -108,19 +114,34 @@ char **tokenize(char* str)
 	    }
 	}
       wordSize=str-pointerStart;  // You can find he lenght of the word like this
-      *(tokensPP+i)=copy_str(pointerStart,wordSize); //Assigning the string pointer to the array
-      printf("tokens %s locaion %d\n",**tokensPP+i,i);
+      printf("copy %s\n",copy_str(pointerStart,wordSize));
+      *tokensPP=copy_str(pointerStart,wordSize); //Assigning the string pointer to the array
+      tokensPP++;
+      // printf("Saved\n");
+      // printf("tokens %s locaion %d\n",tokensPP[i],i);
     }
+  char *lst = malloc(sizeof(char)); //allocates mem and creates 0 token
+
+  *lst = '\0';
+
+  *tokensPP = lst;
+
+  tokensPP  = tokensPP - size;
+
   return tokensPP;
+
 }
+
 
 void main()
 {
   printf("start\n");
-  char test[]="Oscar Ayala Cries alot";
+  printf("test\n");
+  char test[]="My dog has flies";
+  printf("start assign\n");
   char *start=&test[0];
-
-  
+   
+  printf("calling function\n");
   char **tokenS=tokenize(start);
   //char *tokenTest[count_words(start)];
   //tokenTest[0]=*tokenS;
@@ -128,14 +149,14 @@ void main()
   //tokenTest[2]=(*tokenS+2);
   //tokenTest[3]=(*tokenS+3);
   // char tokenA=tokenS[0];
-  printf("TokenPP0%s\n",**tokenS);
-  printf("TokenPP1%s\n",**tokenS+1);
-  printf("TokenPP2%s\n",**tokenS+2);
-  printf("TokenPP3%s\n",**tokenS+3);
+  printf("TokenPP0%s\n",*tokenS);
+  printf("TokenPP1%s\n",*tokenS+1);
+  printf("TokenPP2%s\n",*tokenS+2);
+  printf("TokenPP3%s\n",*tokenS+3);
   //printf("token0 %s\n",&tokenTest);
   //printf("token1 %s\n",&tokenTest+1);
   // printf("token2 %s\n",&tokenTest+2);
   // printf("token3 %s\n",&tokenTest+3);
   // printf("%s\n",tokenA);
-  // return 0;
+  //return 0;
 }
