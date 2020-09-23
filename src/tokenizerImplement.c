@@ -81,12 +81,10 @@ int count_words(char *str)
     for(int i=0;i<len;i++)
       {
 	*temp=*inStr;
-	printf("Loop %s\n",temp);
 	temp++;
 	inStr++;
       }
    *temp='\0';
-   printf("return %s\n",newStrP);
     return newStrP;
   }
 
@@ -97,7 +95,6 @@ int count_words(char *str)
   char **tokensPP=malloc(sizeof(char*) * (size + 1));
   char *pointerStart;
   int wordSize;
-  printf("before loop\n");
   for(int i=0;i<size; i++)
     {
       str=word_start(str);
@@ -114,7 +111,6 @@ int count_words(char *str)
 	    }
 	}
       wordSize=str-pointerStart;  // You can find he lenght of the word like this
-      printf("copy %s\n",copy_str(pointerStart,wordSize));
       *tokensPP=copy_str(pointerStart,wordSize); //Assigning the string pointer to the array
       tokensPP++;
       // printf("Saved\n");
@@ -131,13 +127,30 @@ int count_words(char *str)
   return tokensPP;
 
 }
-
-
+void print_tokens(char **tokens)
+{
+  while(**tokens != '\0')
+    {
+      printf("%s\n",*tokens);
+      tokens++;
+    }
+}
+void free_tokens(char **tokens)
+{
+ char **temp = tokens;
+  while(**temp != '\0') {
+    free(*temp);
+    temp++;
+  }
+  free(*temp);
+  free(tokens);
+}
+/*
 void main()
 {
   printf("start\n");
   printf("test\n");
-  char test[]="My dog has flies";
+  char test[]="Hello world  ";
   printf("start assign\n");
   char *start=&test[0];
    
@@ -149,6 +162,7 @@ void main()
   //tokenTest[2]=(*tokenS+2);
   //tokenTest[3]=(*tokenS+3);
   // char tokenA=tokenS[0];
+  print_tokens(tokenS);
   printf("TokenPP0%s\n",*tokenS);
   printf("TokenPP1%s\n",*tokenS+1);
   printf("TokenPP2%s\n",*tokenS+2);
@@ -160,3 +174,4 @@ void main()
   // printf("%s\n",tokenA);
   //return 0;
 }
+*/
