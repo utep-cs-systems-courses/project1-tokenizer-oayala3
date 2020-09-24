@@ -90,7 +90,6 @@ int count_words(char *str)
 
  char **tokenize(char* str)
 {
-  printf("starting");
   int size=count_words(str);
   char **tokensPP=malloc(sizeof(char*) * (size + 1));
   char *pointerStart;
@@ -113,8 +112,6 @@ int count_words(char *str)
       wordSize=str-pointerStart;  // You can find he lenght of the word like this
       *tokensPP=copy_str(pointerStart,wordSize); //Assigning the string pointer to the array
       tokensPP++;
-      // printf("Saved\n");
-      // printf("tokens %s locaion %d\n",tokensPP[i],i);
     }
   char *lst = malloc(sizeof(char)); //allocates mem and creates 0 token
 
@@ -145,33 +142,3 @@ void free_tokens(char **tokens)
   free(*temp);
   free(tokens);
 }
-/*
-void main()
-{
-  printf("start\n");
-  printf("test\n");
-  char test[]="Hello world  ";
-  printf("start assign\n");
-  char *start=&test[0];
-   
-  printf("calling function\n");
-  char **tokenS=tokenize(start);
-  //char *tokenTest[count_words(start)];
-  //tokenTest[0]=*tokenS;
-  //tokenTest[1]=(*tokenS+1);
-  //tokenTest[2]=(*tokenS+2);
-  //tokenTest[3]=(*tokenS+3);
-  // char tokenA=tokenS[0];
-  print_tokens(tokenS);
-  printf("TokenPP0%s\n",*tokenS);
-  printf("TokenPP1%s\n",*tokenS+1);
-  printf("TokenPP2%s\n",*tokenS+2);
-  printf("TokenPP3%s\n",*tokenS+3);
-  //printf("token0 %s\n",&tokenTest);
-  //printf("token1 %s\n",&tokenTest+1);
-  // printf("token2 %s\n",&tokenTest+2);
-  // printf("token3 %s\n",&tokenTest+3);
-  // printf("%s\n",tokenA);
-  //return 0;
-}
-*/

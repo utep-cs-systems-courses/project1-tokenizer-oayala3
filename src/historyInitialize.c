@@ -33,15 +33,12 @@ void add_history(List *list, char *str)
 }
 char *get_history(List *list, int id)
 {
-  printf("Start of funcion\n");
-  Item* current= list->root;
+   Item* current= list->root;
   int found=0;
   char *str;
-  printf("while\n");
-  while(found==0 && current!=NULL)
+   while(found==0 && current!=NULL)
     {
-      printf("if current\n");
-      if(current->id==id)
+       if(current->id==id)
 	{
 	  found=1;
 	}
@@ -50,18 +47,14 @@ char *get_history(List *list, int id)
       current=current->next;
 	}
     }
-  printf("if\n");
-  if(found==1){
-    printf("found");
+    if(found==1){
     str=current->str;
   }
   else
     {
-      printf("else\n");
-      str=NULL;
+        str=NULL;
     }
-  printf("return %s\n",str);
-  return str;
+    return str;
 }
 void print_history(List *list)
 {
@@ -93,6 +86,7 @@ void free_history(List *list)
     }
   printf("freed");
 }
+/*
 void main(){
   printf("start\n");
   List *list=init_history();
@@ -113,3 +107,4 @@ void main(){
   print_history(list);
  free_history(list);
     }
+*/

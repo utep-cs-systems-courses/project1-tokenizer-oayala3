@@ -59,8 +59,7 @@ static char *test_is_valid_character1() {
   mu_assert("non_space_char(' ') == 0", non_space_char(' ') == 0);
 
   mu_assert("non_space_char('h') == 1", non_space_char('h') == 1);
-
-  return 0;
+ return 0;
 
 }
 
@@ -71,7 +70,6 @@ static char *test_find_word_start() {
   char *str = "  happy";
 
   mu_assert("word_start('  happy') == &str[2]'", word_start(str) == &str[2]);
-
   return 0;
 
 }
@@ -85,7 +83,6 @@ static char *test_find_word_terminator() {
   mu_assert("word_terminator('happy joy') == &str[5]' '", word_terminator(str) == &str[5]);
 
   mu_assert("word_terminator(emptyStr) == empty", word_terminator(empty) == NULL);
-
   return 0;
 
 }
@@ -97,7 +94,6 @@ static char *test_count_words() {
   char *str = "happy happy joy joy";
 
   mu_assert("count_words('happy happy joy joy') == 4", count_words(str) == 4);
-
   return 0;
 
 }static char *test_tokenize() {
@@ -115,7 +111,6 @@ static char *test_count_words() {
   mu_assert("tokens[3] == 'joy'", strcmp(tokens[3], "joy") == 0);
 
   free_tokens(tokens);
-
   return 0;
 
 }
@@ -135,8 +130,7 @@ static char *test_add_history() {
   add_history(list, "joy");
 
   mu_assert("add_history(list, 'joy')", strcmp(list->root->next->str, "joy") == 0);
-
-  return 0;
+ return 0;
 
 }
 
@@ -145,11 +139,8 @@ static char *test_add_history() {
 static char *test_get_history() {
 
   List* list = init_history();
-
   add_history(list, "happy");
-
-  mu_assert("get_history(list, 1)", strcmp(get_history(list, 1), "happy") == 0);
-
+  mu_assert("get_history(list, 0)", strcmp(get_history(list, 0), "happy") == 0);
   return 0;
 
 }
@@ -180,7 +171,6 @@ static char *all_tests() {
     mu_run_test(test_get_history);
 
   }
-
 
 
   return 0;
