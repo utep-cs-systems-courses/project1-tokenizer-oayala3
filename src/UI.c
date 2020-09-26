@@ -7,58 +7,12 @@
 #include "historyInitialize.c"
 
 void add_tokens(List *list,char **tokens)
-
+  
 {
-
   while(**tokens != '\0')
-
     {
-
       add_history(list,*tokens);
-
       tokens++;
- 
-    }
-}
-void search_tokens(List *list)
-{
-  int stop=0;
-  int stop1=0;
-  int id;
-  char *yes="yes\0";
-  char *no="no\0";
-  char *choice;
-  printf("You selected search. Please enter the ID. Rremeber the IDs start at 0");
-  while(stop==0)
-    {
-      scanf("%d",&id);
-      char *found=get_history(list,id);
-      if(found=NULL)
-	{
-	  printf("We found this in the history: ID: %d, Token: %s",id, found);
-	  stop=1;
-	}
-      else
-	{
-	  printf("That ID you input doesnt doesnt exist\n Do you want to try again?");
-	  choice=getLine();
-	  while(stop1==0)
-	    if(strcasecmp(choice,yes)==10)
-	      {
-		stop=0;
-		stop1=1;
-		printf("enter a valid ID remeber they start at 0");
-	      }
-	    else if(strcasecmp(choice,no)==10)
-	      {
-		stop=1;
-		stop1=1;
-	      }
-	    else
-	      {
-		printf("please say 'yes' or 'no'");
-	      }
-	}
     }
 }
 
@@ -66,7 +20,7 @@ char *getLine() {
   
   char *line = malloc(100), * linep = line;
   size_t lenmax = 100, len = lenmax;
-
+  
   int c;
 
   if(line == NULL)
@@ -92,9 +46,53 @@ char *getLine() {
   *line = '\0';
   return linep;
 }
-
-
-void ui ()
+void search_tokens(List *list)
+{
+  int stop=0;
+  int stop1=0;
+  int id;
+  char *yes="yes\0";
+  char *no="no\0";
+  char *choice;
+  char *found;
+  char foundStr;
+  printf("You selected search. Please enter the ID. Rremeber the IDs start at 0\n");
+  while(stop==0)
+    {
+      scanf("%d",&id);
+      found=get_history(list,id);
+      fflush(stdin);
+      if(found!=NULL)
+	{
+	  printf("We found this in the history: ID: %d, Token: %s \n",id, found);
+	  stop=1;
+	}
+      else
+	{
+	  printf("That ID you input doesnt doesnt exist\n Do you want to try again?");
+	  while(stop1==0)
+	    {
+	      choice=getLine();
+	      if(strcasecmp(choice,yes)==10)
+		{
+		  stop=0;
+		  stop1=1;
+		  printf("enter a valid ID remeber they start at 0\n");
+		}
+	      else if(strcasecmp(choice,no)==10)
+		{
+		  stop=1;
+		  stop1=1;
+		}
+	      else
+		{
+		  printf("please say 'yes' or 'no'\n");
+		}
+	    }
+	}
+    }
+}
+ void ui ()
 {
   List *list=init_history();
   char *choice;
@@ -112,26 +110,19 @@ void ui ()
   while(stop==0)
     {
       userInput=getLine();
-      
-      printf("after scan\n");
       if(strcasecmp(userInput,exit)!=10)
 	{
 	  cont=0;
-	  printf("before tokens\n");
 	  tokens=tokenize(userInput);
-	  printf("sfter tokens\n");
 	  add_tokens(list,tokens);
-	  printf("Your string was tokenized and stored. You can input 'print' to see the results or 'continue' to add another sentence.You can say 'search' to search using ID. You also can say 'exit' to finish.\n ");
+	  printf("Your string was tokenized and stored.\n You can input 'print' to see the results or 'continue' to add another sentence.You can say 'search' to search using ID. You also can say 'exit' to finish.\n ");
 	  while(cont==0)
 	    {
 	      choice=getLine();
-	      printf(choice);
-	      printf("result compare = %d \n",strcasecmp(choice,print));
 	      if(strcasecmp(choice,print)==10)
 		{
 		  print_history(list);
 		  cont=1;
-		  printf("printing\n");
 		}
 	      else if(strcasecmp(choice,exit)==10)
 		{
