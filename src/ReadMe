@@ -1,0 +1,5 @@
+The Tokenizer workds by seperating a sentence intoindividual words. You then
+store the words into a List and you assign it a ID. The tokenizer has its own
+User Interface. It is the UI.c From there you can comunicate with the computer
+and tell it what to do. You can tokenize your string then you can print or
+search. You can also continue to add sentences.
