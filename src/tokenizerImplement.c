@@ -76,11 +76,11 @@ int count_words(char *str)
 }
   char *copy_str(char *inStr, short len)
   {
-    char *newStrP=malloc(sizeof(char) * (len + 1));
+    char *newStrP=malloc(sizeof(char) * (len + 1)); // alocate memory for string
     char *temp=newStrP;
     for(int i=0;i<len;i++)
       {
-	*temp=*inStr;
+	*temp=*inStr; // populate the new string
 	temp++;
 	inStr++;
       }
@@ -94,7 +94,7 @@ int count_words(char *str)
   char **tokensPP=malloc(sizeof(char*) * (size + 1));
   char *pointerStart;
   int wordSize;
-  for(int i=0;i<size; i++)
+  for(int i=0;i<size; i++) // repeat for the number of words
     {
       str=word_start(str);
       pointerStart=str;
@@ -126,16 +126,16 @@ int count_words(char *str)
 }
 void print_tokens(char **tokens)
 {
-  while(**tokens != '\0')
+  while(**tokens != '\0') // print until empty
     {
       printf("%s\n",*tokens);
       tokens++;
     }
 }
-void free_tokens(char **tokens)
+void free_tokens(char **tokens) // frees by moving from the head foward. It keeys movingfoward and freing
 {
- char **temp = tokens;
-  while(**temp != '\0') {
+  char **temp = tokens;
+  while(**temp != '\0') { 
     free(*temp);
     temp++;
   }
